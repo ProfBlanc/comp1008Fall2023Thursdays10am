@@ -1,0 +1,39 @@
+Data Types
+    CS
+        int
+        long
+        double
+        float
+        char
+        string
+        bool
+        short
+        byte
+        sbyte
+        ushort
+        ulong
+    java
+        int
+        long
+        double
+        float
+        char
+        boolean
+        short
+        byte
+        String
+
+Output
+    cs
+        Console.Write/WriteLin
+    java
+        System.out.print/println
+
+Input
+    cs
+        Console.ReadLine()
+    java
+        Scanner object
+            Scanner input = new Scanner(System.in);
+            input.
+                nextLine, nextInt, nextDATATYPE

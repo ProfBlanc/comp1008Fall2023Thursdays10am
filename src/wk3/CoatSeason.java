@@ -20,7 +20,8 @@ public class CoatSeason {
 
 
      */
-    private String month, season, coat;
+    private String month="jan", season="winter",
+            coat="light winter coat";
     private double temperature;
 
 
@@ -66,8 +67,20 @@ public class CoatSeason {
         return coat;
     }
 
-    public void setCoat(String coat) {
-        this.coat = coat;
+    public void setCoat() {
+        if(season.equals("winter") && temperature < -15)
+            coat = "heavy winter coat";
+        else if(season.equals("winter") && temperature <= 0)
+            coat = "light winter coat";
+        else if(season.equals("winter") && temperature >0)
+            coat = "thick sweater";
+        else if (season.equals("summer")){
+            coat = "no coat";
+        }
+        else{
+            coat = "not implemented";
+        }
+
     }
 
     public double getTemperature() {
@@ -86,10 +99,31 @@ public class CoatSeason {
             called implicitly once when creating the object
      */
     public CoatSeason(){}
+    private void validateMonthSeason(){
+        if(season.equalsIgnoreCase("winter")){
+            if(month.equals("dec") || month.equals("jan") ||
+                    month.equals("feb") || month.equals("mar")){}
+            else{
+                setMonth("dec");
+            }
+        }
+        else  if(season.equalsIgnoreCase("summer")){
+            if(month.equals("jun") || month.equals("jul") ||
+                    month.equals("aug") || month.equals("sep")){}
+            else{
+                setMonth("jun");
+            }
+        }
+
+    }
     public CoatSeason(String month, double temperature, String season){
         setTemperature(temperature);
         setSeason(season);
         setMonth(month);
+        //validate month-season combo
+        validateMonthSeason();
+        //choose coat
+        setCoat();
     }
     public CoatSeason(double temperature, String month, String season) {
         this(month, temperature, season);
@@ -109,4 +143,9 @@ public class CoatSeason {
                     unique order of data types
      */
 
+    @Override
+    public String toString(){
+        return String.format("Season=%s, Month=%s, " +
+                "Temperature=%.1f, Coat=%s%n", season, month, temperature, coat);
+    }
 }

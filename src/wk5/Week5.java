@@ -1,5 +1,6 @@
 package wk5;
-
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 public class Week5 {
 
     static void example1(){
@@ -72,7 +73,28 @@ public class Week5 {
         }
 
     }
+    static void example2(){
+
+        String text = "Can my phone number is (705) 555-1234. Call me son! Hello, how are you? " +
+                "hello Hello HELLO";
+        String regex = "^Hello";
+        regex = "hello";
+        regex = "^[a-z]{3}\\s|[a-z]{3}[\\.!?]|\\s[a-z]{3}\\s";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(text);
+
+        //find matches
+        while(matcher.find()){
+            System.out.print("MATCHED TEXT = ");
+            System.out.println(matcher.group());
+            System.out.printf("Text matched between String indexes of %d and %d%n",
+                    matcher.start(), matcher.end()
+                    );
+            System.out.println("*".repeat(20));
+        }
+
+    }
     public static void main(String[] args) {
-        example1();
+        example2();
     }
 }

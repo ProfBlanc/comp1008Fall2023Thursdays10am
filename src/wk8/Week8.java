@@ -11,7 +11,7 @@ public class Week8{
     public static void main(String[] args) {
         //example1();
         try{
-            example10();
+            example11();
         }
         catch (Exception e){
             System.err.println(e);
@@ -157,6 +157,61 @@ public class Week8{
         String content = Files
                 .readString(rootPath.resolve("test/f3.txt"));
         System.out.println(content);
+    }
+
+    static void example11() throws IOException{
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to our Student Timetable program");
+        System.out.println("Enter the year");
+        String year = input.nextLine();
+        System.out.println("Enter the term");
+        String term = input.nextLine();
+        System.out.println("Thank you for completing the first step");
+        System.out.printf("You will not be inputting your timetable " +
+                "for year %s, term %s%n", year, term);
+        System.out.println("Enter a day of the week");
+        String dayOfWeek = input.nextLine();
+        System.out.printf("You will now be entering courses on %s's " +
+                "for the %s semester of %s%n",
+                dayOfWeek, term, year);
+
+        Path rootTimeTablePath = rootPath.resolve("timetable");
+        if(!Files.exists(rootTimeTablePath)){
+            Files.createDirectory(rootTimeTablePath);
+        }
+
+        Path semesterPath = rootTimeTablePath.resolve(year).resolve(term);
+        if(!Files.exists(semesterPath)){
+            Files.createDirectories(semesterPath);
+        }
+        Path dayOfWeekPath = semesterPath.resolve(dayOfWeek + ".txt");
+
+        if(!Files.exists(semesterPath.resolve(dayOfWeekPath))){
+            Files.createFile(dayOfWeekPath);
+        }
+
+        while(true) {
+            System.out.printf("Enter a time of your %s class%n", dayOfWeek);
+            String time = input.nextLine();
+            System.out.printf("Enter course code " +
+                    "for you %s class on %s%n", time, dayOfWeek);
+            String courseCode = input.nextLine();
+
+            if(time.length() == 0 || courseCode.length() == 0 ||
+            time.toLowerCase().charAt(0) == 'q' ||
+            courseCode.toLowerCase().charAt(0) == 'q'
+            ){
+                break;
+            }
+
+            String content = String.format("%s:%s%n", time, courseCode);
+            Files.writeString(dayOfWeekPath,
+                    content, StandardOpenOption.APPEND);
+            System.out.println("Enter another time and course code combination");
+        }
+
+        System.out.println("Thank you for using the program");
+
     }
 
 }

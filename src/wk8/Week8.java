@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -14,7 +11,7 @@ public class Week8{
     public static void main(String[] args) {
         //example1();
         try{
-            example7();
+            example10();
         }
         catch (Exception e){
             System.err.println(e);
@@ -141,4 +138,25 @@ public class Week8{
         }
 
     }
+
+    static void example8() throws IOException{
+        //delete
+        Files.delete(Paths.get("test/dir1"));
+    }
+    static void example9() throws IOException{
+
+        //writing
+        String content = "my cool text\n";
+        Path p1 = rootPath.resolve("test")
+                .resolve("f3.txt");
+        Files.writeString(p1, content, StandardOpenOption.APPEND);
+
+    }
+    static void example10() throws IOException{
+
+        String content = Files
+                .readString(rootPath.resolve("test/f3.txt"));
+        System.out.println(content);
+    }
+
 }

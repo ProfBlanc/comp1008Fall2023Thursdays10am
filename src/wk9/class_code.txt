@@ -1,0 +1,144 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+
+
+
+/*
+
+    inheritance
+        building something based on something esle
+        create a class based on another class
+        
+        OLD                 NEW
+        
+        base                derived
+        parent              child
+        super               sub
+        
+        what is inherited
+            non-private entities
+                methods, instance variables
+        
+            constructors
+                only default constructor
+        
+        why?
+            create something, newer
+                more precise
+    
+    
+    Animal
+        
+*/
+
+class Animal{
+    private int heartbeat;
+    private int legs;
+    String aVariable;
+
+    public void setLegs(int legs){
+        this.legs = legs;
+    }
+    public void setHeartbeat(int heartbeat){
+        this.heartbeat = heartbeat;
+    }
+    public int getHeartbeat(){
+        return heartbeat;
+    }
+    public int getLegs(){
+        return legs;
+    }
+    
+    public Animal(){}
+    public Animal(int legs){
+        setLegs(legs);
+        
+    }
+    public Animal(int heartbeat, int legs){
+        setHeartbeat(heartbeat);
+        setLegs(legs);
+    }
+}
+
+class Cat extends Animal{
+    
+    private double tailLength;
+    public void setTailLength(double tailLength){
+        this.tailLength = tailLength;
+    }
+    public double getTailLength(){
+        return tailLength;
+    }
+    
+    public int getLegs(){
+        return 9876;
+    }
+    public Cat(){}
+    public Cat(int hb, int legs){
+        super(hb, legs);
+    }
+    //annotation: speaks to compiler
+    //checks if method signature/header 
+    //matches any super class method signature
+   @Override
+    public void setHeartbeat(int hb){
+        //this.aVariable = String.valueOf(hb);
+        if(hb > 80)
+            throw new IllegalArgumentException("Heartbeat value too big");
+        
+        super.setHeartbeat(hb);
+    }
+}
+
+class Lion extends Cat{
+    private double teeth;
+    public void setTeeth(double teeth){
+        this.teeth = teeth;
+    }
+    public double getTeeth(){
+        return teeth;
+    }
+    
+    public int getLegs(){
+        
+        return 12345;
+    }
+}
+/*
+
+Object   Animal      Cat         Lion
+
+overriding: create a brand new implementation.
+overloading: creating a new variation
+*/
+class HelloWorld {
+    static void example1(){
+                Animal a1 = new Animal();
+        //toString(), equals(), hashCode(), getClass()
+        
+        Lion l = new Lion();
+        System.out.println(l);
+        
+        Animal a2 = new Lion();
+        Object o = "hello";
+        
+        System.out.println(l.getLegs());
+        Animal a3 = new Animal();
+        System.out.println(a3.getLegs());
+        System.out.println(a2.getLegs()); 
+    }
+    static void example2(){
+        Animal[] animals = {new Lion(), new Cat(), new Animal()};
+        
+        System.out.println(animals[0].getLegs());
+    }
+    static void example3(){
+        
+        Animal a1 = new Animal(100, 4);
+        Cat c1 = new Cat();
+        Cat c2 = new Cat(80, 4);
+    }
+    public static void main(String[] args) {
+        example3();
+   }
+}

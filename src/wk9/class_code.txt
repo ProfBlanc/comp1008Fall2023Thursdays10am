@@ -58,6 +58,10 @@ class Animal{
         setHeartbeat(heartbeat);
         setLegs(legs);
     }
+    
+    public String toString(){
+        return String.format("Heartbeat = %d, Legs = %d", heartbeat, legs);
+    }
 }
 
 class Cat extends Animal{
@@ -104,6 +108,39 @@ class Lion extends Cat{
         return 12345;
     }
 }
+class Canine extends Animal{
+    String color = "";
+    private double weight;
+    private double height;
+    
+    public double getHeight(){
+        return height;
+    }
+    public double getWeight(){
+        return weight;
+    }
+    public void setHeight(double h){
+        height = h;
+    }
+    public void setWeight(double w){
+        weight = w;
+    }
+    public Canine(){}
+    public Canine(int heartbeat, int legs){
+        super(heartbeat, legs);
+    }
+        public Canine(int heartbeat, int legs, double h, double w){
+            
+            super(heartbeat, legs);
+            setWeight(w);
+            setHeight(h);
+}
+
+@Override
+public String toString(){
+    return super.toString() + String.format(", Height = %.1f,Weight = %.1f", height, weight);
+}
+}
 /*
 
 Object   Animal      Cat         Lion
@@ -111,6 +148,50 @@ Object   Animal      Cat         Lion
 overriding: create a brand new implementation.
 overloading: creating a new variation
 */
+
+class Student{
+    public String name = "Student";
+    protected int studentID, age;
+    private double grade;
+    
+public double getGrade(){return grade;  }
+public int getAge(){return age;}
+public void setAge(int age){
+this.age = age > 0 && age <= 100 ? age: 0;
+}
+public void setGrade(double grade){
+this.grade = grade > 0 && grade <= 100 ? grade: 0;
+}
+
+public Student(){}
+public Student(String name, int studentID, int age,double grade){
+    this.name = name;
+    this.studentID = studentID;
+    setGrade(grade);
+    setAge(age);
+}
+}
+
+class HonorRollStudent extends Student{
+    String prizes = "";
+    public HonorRollStudent(){}
+    public HonorRollStudent(String name, int studentID, int age, double grade){
+        super(name, studentID, age, grade);
+    }
+public HonorRollStudent(String name, int studentID, int age, double grade, String prizes){
+        super(name, studentID, age, grade);
+        this.prizes = prizes;
+    }
+    
+@Override
+public double setGrade(double grade){
+    if(grade < 80)
+    throw new IllegalArgumentException("Grade must be at least 80%");
+    
+    super.setGrade(grade);
+}
+}
+
 class HelloWorld {
     static void example1(){
                 Animal a1 = new Animal();
@@ -138,7 +219,18 @@ class HelloWorld {
         Cat c1 = new Cat();
         Cat c2 = new Cat(80, 4);
     }
+         static void example4(){
+         Canine c = new Canine();
+         System.out.println(c);
+     }
+     static void example5(){
+        Animal[] animals = {new Lion(), new Canine(), new Animal(), new Cat()};
+        
+        for(Animal a : animals){
+            System.out.println(a.getClass().getName() + "--" + a);
+        }
+     }
     public static void main(String[] args) {
-        example3();
+        example5();
    }
 }

@@ -175,3 +175,42 @@ class HelloWorld {
         System.out.println("Hello, World!");
     }
 }
+
+abstract class Heart{
+    int heartbeat;
+    String size;
+    public Heart(){}
+    public Heart(int h, String s){
+        heartbeat = h;
+        size = s;
+    }
+abstract String pump();
+abstract int chambers();
+}
+
+interface Hand{
+    
+    void grip();
+    int TOTAL_FINGERS = 10;
+}
+interface Arm extends Hand{
+    void flex();
+    int JOINTS = 3;
+}
+interface Hair{}
+class Human extends Heart implements Hair, Arm{
+    
+    public void flex(){}
+    public void grip(){
+        System.out.println(TOTAL_FINGERS + "-" + JOINTS);
+    }
+    
+    
+    String pump(){
+        return null;
+    }
+    int chambers(){
+        return 0;
+    }
+}
+
